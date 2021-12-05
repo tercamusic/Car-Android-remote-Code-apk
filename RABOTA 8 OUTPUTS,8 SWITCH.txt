@@ -1,0 +1,131 @@
+//---------ELECTRONOOBS----------//
+//--------BT app control---------//
+#include<SoftwareSerial.h>
+SoftwareSerial BTSerial(2,3);
+
+int lock=5;
+int unlock=6;
+int mirrors=7;
+int headlight=8;
+int windowsup=9;
+int windowsdown=10;
+int siren=11;
+int engine=12;
+int hazard=13;
+
+int Received=0;
+int lock_state=0;
+int unlock_state=0;
+int mirrors_state=0;
+int headlight_state=0;
+int windowsup_state=0;
+int windowsdown_state=0;
+int siren_state=0;
+int engine_state=0;
+int hazard_state=0;
+
+void setup(){
+  
+  Serial.begin(9600);
+  pinMode(lock,OUTPUT);
+  pinMode(unlock,OUTPUT);
+  pinMode(mirrors,OUTPUT);
+  pinMode(headlight,OUTPUT);
+  pinMode(windowsup,OUTPUT);
+  pinMode(windowsdown,OUTPUT);
+  pinMode(siren,OUTPUT);
+  pinMode(engine,OUTPUT);
+  pinMode(hazard,OUTPUT);
+  BTSerial.begin(9600);
+}
+
+void loop(){
+ 
+ if(BTSerial.available()>0)
+ { 
+    Received = BTSerial.read();
+    
+ }
+
+////////////////LOCK/////////////////////
+ if (Received =='1'){
+   digitalWrite(lock,HIGH);   
+  }  
+ if (Received == '2'){
+ digitalWrite(lock,LOW);
+ }
+ ///////////////////////////////////////////
+ 
+ ////////////////UNLOCK/////////////////////
+ if (Received =='3'){
+   digitalWrite(unlock,HIGH);   
+  }  
+ if (Received == '4'){
+ digitalWrite(unlock,LOW);
+ }
+ ///////////////////////////////////////////
+
+ ////////////////MIRRORS/////////////////////
+ if (Received =='5'){
+   digitalWrite(mirrors,HIGH);   
+  }  
+ if (Received == '6'){
+ digitalWrite(mirrors,LOW);
+ }
+ ///////////////////////////////////////////
+
+////////////////HEADLIGHT/////////////////////
+ if (Received =='7'){
+   digitalWrite(headlight,HIGH);   
+  }  
+ if (Received == '8'){
+ digitalWrite(headlight,LOW);
+ }
+ ///////////////////////////////////////////
+
+ ////////////////WINDOWS UP/////////////////////
+ if (Received =='9'){
+   digitalWrite(windowsup,HIGH);   
+  }  
+ if (Received == 'a'){
+ digitalWrite(windowsup,LOW);
+ }
+ ///////////////////////////////////////////
+
+
+ ////////////////WINDOWS DOWN/////////////////////
+ if (Received =='b'){
+   digitalWrite(windowsdown,HIGH);   
+  }  
+ if (Received == 'c'){
+ digitalWrite(windowsdown,LOW);
+ }
+////////////////////////////////////////
+
+////////////////SIREN/////////////////////
+ if (Received =='d'){
+   digitalWrite(siren,HIGH);   
+  }  
+ if (Received == 'e'){
+ digitalWrite(siren,LOW);
+ }
+////////////////////////////////////////
+
+////////////////HAZARD/////////////////////
+ if (Received =='h'){
+   digitalWrite(hazard,HIGH);   
+  }  
+ if (Received == 'i'){
+ digitalWrite(hazard,LOW);
+ }
+////////////////////////////////////////
+
+ ////////////////ENGINE/////////////////////
+ if (Received =='f'){
+   digitalWrite(engine,HIGH);   
+  }  
+ if (Received == 'g'){
+ digitalWrite(engine,LOW);
+ }
+////////////////////////////////////////
+}
