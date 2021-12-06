@@ -1,0 +1,38 @@
+{
+  "name": "bluetooth_ble_controller",
+  "version": "1.0.0",
+  "title": "бежичен контролер",
+  "description": "бежичен контролер",
+  "tags": [
+    {
+      "label": "arduino",
+      "type": "platform"
+    },
+    {
+      "label": "ble",
+      "type": "comm"
+    }
+  ],
+  "libraries": [
+    {
+      "name": "jquery",
+      "version": "2.1.1"
+    }
+  ],
+  "plugins": [
+    {
+      "name": "cordova-plugin-ble",
+      "version": "2.0.0"
+    }
+  ],
+  "index-file": "index.html",
+  "app-dir": "app",
+  "uuid": "28277843-5882-4c31-8d44-de24e7e21a09",
+  "icon": "app-icon.png",
+  "doc-url": "http://evothings.com/2.2/doc/examples/arduino101-led-onoff.html",
+  "long-description": "Апликација за контрола преку Bluetooth 4.0 BLE Уреди.",
+  "cordova-id": "com.evothings.examples.controller",
+  "author-name": "Tercamusic",
+  "author-email": "tercamusic",
+  "author-url": "tercamusic"
+}

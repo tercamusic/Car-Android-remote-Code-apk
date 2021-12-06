@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<!--
+This is an app that demonstrates how to control an Arduino101 board
+using BLE (Bluetooth Low Energy).
+-->
+<head>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no
+		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+
+	<title>Бежичен Контролер</title>
+
+	<style>
+		@import 'ui/css/evothings-app.css';
+	</style>
+
+	<script>
+	// Redirect console.log to Evothings Workbench.
+	if (window.hyper && window.hyper.log) { console.log = hyper.log }
+	window.onerror = function(msg, url, line)
+	{
+		console.log(msg + ": " + url + ":" + line);
+	};
+	</script>
+
+	<script src="cordova.js"></script>
+	<script src="libs/jquery/jquery.js"></script>
+	<script src="libs/evothings/evothings.js"></script>
+	<script src="libs/evothings/ui/ui.js"></script>
+	<script src="libs/evothings/arduinoble/arduinoble.js"></script>
+
+</head>
+
+<body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
+
+	<header>
+		<img class="logotype" src="ui/images/tercamusic.jpg" alt="Evothings" />
+
+		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
+	</header>
+
+	<h1>БЕЗЖИЧЕН КОНТРОЛЕР</h1>
+
+	<p id="info">Вчитување...</p>
+	
+	<button class="blue wide" ontouchstart="app.connect()">ПОВРЗИ</button>
+
+	<br />
+
+	<button class="green half big" ontouchstart="app.led1()">ВКЛУЧИ / ИСКЛУЧИ - 1</button>
+
+	<br />
+
+	<button class="green half big" ontouchstart="app.led2()">ВКЛУЧИ / ИСКЛУЧИ - 2</button>
+	
+	<br />
+	
+	<button class="green half big" ontouchstart="app.led3()">ВКЛУЧИ / ИСКЛУЧИ - 3</button>
+
+	<br />
+
+	<button class="green half big" ontouchstart="app.led4()" ontouchend="app.led5()" >ВКЛУЧИ / ИСКЛУЧИ - 4</button>
+    
+	<br />
+	
+	<!--<a href="discovery/indexx.html"> <button class="yellow wide">Скенирај</button> // include </a> after .html-->
+	
+	<br />
+	
+	<script>
+	// Application object.
+	var app = {}
+
+	// Connected device.
+	app.device = null;
+
+	// Turn on LED.
+	app.led1 = function()
+	{
+		app.device && app.device.writeDataArray(new Uint8Array([1]), '0000FFE1-0000-1000-8000-00805F9B34FB');
+	}
+
+	// Turn off LED.
+	app.led2 = function()
+	{
+		app.device && app.device.writeDataArray(new Uint8Array([062]), '0000FFE1-0000-1000-8000-00805F9B34FB');
+	}
+
+	// Turn on LED.
+	app.led3 = function()
+	{
+		app.device && app.device.writeDataArray(new Uint8Array([063]), '0000FFE1-0000-1000-8000-00805F9B34FB');
+	}
+	
+	// Turn off LED.
+	app.led4 = function()
+	{
+		app.device && app.device.writeDataArray(new Uint8Array([064]), '0000FFE1-0000-1000-8000-00805F9B34FB');
+	}
+	
+	// Turn off LED.
+	app.led5 = function()
+	{
+		app.device && app.device.writeDataArray(new Uint8Array([065]), '0000FFE1-0000-1000-8000-00805F9B34FB');
+	}
+	
+	app.showMessage = function(info)
+	{
+		document.getElementById('info').innerHTML = info
+	};
+
+	// Called when BLE and other native functions are available.
+	app.onDeviceReady = function()
+	{
+		app.showMessage('Притисни ПОВРЗИ за да започнеш.');
+	};
+
+	app.connect = function()
+	{
+		evothings.arduinoble.close();
+		
+		app.showMessage('Поврзување...');
+
+		evothings.arduinoble.connect(
+			'TERCA', // Advertised name of BLE device.
+			function(device)
+			{
+				app.device = device;
+				app.showMessage('ПОВРЗАНО! Притисни ги копчињата за да вклучиш/исклучиш.');
+			},
+			function(errorCode)
+			{
+				app.showMessage('Грешка во поврзување: ' + errorCode + '.');
+			});
+	};
+
+	document.addEventListener(
+		'deviceready',
+		function() { evothings.scriptsLoaded(app.onDeviceReady) },
+		false);
+	</script>
+
+</body>
+
+</html>
